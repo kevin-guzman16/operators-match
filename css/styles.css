@@ -1,0 +1,153 @@
+@font-face {
+    font-family: "Arcade";
+    src: url("../assets/fuentes/arcade-normal.ttf") format("truetype");
+}
+
+
+main {
+  margin: 0 auto;
+  width: 700px;
+  border: 1px solid;
+  position: relative;;
+  background-image: url("../assets/imgs/fondojuego.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+
+.titulo-juego {
+  color: #FF6D00;
+  font-family: Arcade, serif;
+  font-weight: normal;
+  text-align: left;
+  margin-left: .7em;
+  font-size: 3em;
+}
+
+.info-contenedor {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-juego {
+  color: #F1C40F;
+  font-family: Arcade, serif;
+  font-size: 1.2em;
+}
+
+.contenedor {
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
+  justify-content: center;
+  perspective: 500px;
+}
+
+.carta {
+  position: relative;
+  height: 126px;
+  width: 126px;
+}
+
+.carta-cara {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+  overflow: hidden;
+  transition: transform 500ms ease-in-out;
+  backface-visibility: hidden;
+}
+
+.carta.visible .carta-detras {
+  transform: rotateY(-180deg); 
+}
+
+.carta.visible .carta-frente {
+  transform: rotateY(0); 
+}
+
+.carta-detras {
+  background-color: black;
+  border-color: #FF6D00;
+  transform: rotateY(0); 
+}
+
+.spider {
+  align-self: flex-start;
+  transition: transform 100ms ease-in-out;
+  transform: translateY(-13px);
+}
+
+.carta-detras:hover .spider {
+  transform: translateY(0);
+}
+
+.carta-valor {
+  position: relative;
+  transition: transform 100ms ease-in-out;
+  transform: scale(.9);
+}
+
+.carta-frente:hover .carta-valor {
+  transform: scale(1);
+}
+
+.carta-frente {
+  background-color: #FF6D00;
+  border-color: #333;
+  transform: rotateY(180deg);
+}
+
+.cubrir-texto, .game-over{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: none;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #FF6D00;
+  font-family: Arcade, serif;
+  transition: background-color 500ms, font-size 500ms;
+}
+
+.cubrir-mini-texto {
+  font-size: .3em;
+}
+
+.cubrir-texto.visible, .game-over.visible{
+  display: flex;
+  animation: cubrir-crecer 500ms forwards;
+}
+
+@keyframes cubrir-crecer {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 0;
+  }
+  to {
+    background-color: rgba(0, 0, 0, .8);
+    font-size: 4em;
+  }
+}
+
+@media (max-width: 600px) {
+  .contenedor {
+    grid-template-columns: repeat(2, auto)
+  }
+
+  .info-contenedor {
+    flex-direction: column;
+    align-items: center;
+  }
+}
