@@ -1,9 +1,9 @@
 class AudioController {
     constructor() {
-        this.fondoMusica = new Audio('assets/audios/fondo.ogg');
-        this.voltearSonido = new Audio('assets/audios/voltear.mp3');
-        this.matchSonido = new Audio('assets/audios/match.mp3');
-        this.gameOverSonido = new Audio('assets/audios/gameOver.wav');
+        this.fondoMusica = new Audio('operators-match/assets/audios/fondo.ogg');
+        this.voltearSonido = new Audio('operators-match/assets/audios/voltear.mp3');
+        this.matchSonido = new Audio('operators-match/assets/audios/match.mp3');
+        this.gameOverSonido = new Audio('operators-match/assets/audios/gameOver.wav');
         this.fondoMusica.volume = 0.3;
         this.fondoMusica.loop = true;
     }
@@ -31,6 +31,7 @@ class AudioController {
 }
 
 class CardsPairs {
+
     constructor(tiempo, cartas) {
         this.cartasArray = cartas;
         this.tiempo = tiempo;
@@ -66,12 +67,29 @@ class CardsPairs {
         }, 1000);
     }
 
+    sendScoreAJAX(score) {
+      console.log(score);
+       $.ajax({
+           type: "POST",
+           url: "../score/add",
+           data: { "Game": 'Operators Match', "Score" : score },
+           success: (response) => {
+               if (response.route) window.location.href = response.route;
+           },
+           error: () => {
+               console.log("AJAX JQUERY DOES BRRRR.");
+           }
+       });
+   }
+
     gameOver() {
-        let texto = document.getElementById('game-over-texto')
+        let texto = document.getElementById('game-over-texto');
         texto.classList.add('visible');
         texto.classList.remove('cubrir-texto');
         clearInterval(this.cuentaAtras);
         this.audioController.gameOver();
+
+        setTimeout(this.sendScoreAJAX, 3000, this.totalScore);
     }
 
     SiguienteRonda() {
@@ -93,7 +111,7 @@ class CardsPairs {
     voltearCarta(carta) {
         if(this.puedoVoltearCarta(carta)) {
             this.audioController.voltear();
-           
+
             carta.classList.add('visible');
 
             if(this.cartasCheck) {

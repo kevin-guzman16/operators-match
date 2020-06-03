@@ -6,7 +6,8 @@
 
 main {
   margin: 0 auto;
-  width: 700px;
+  width: 680px;
+  height: 720px;
   border: 1px solid;
   position: relative;;
   background-image: url("../assets/imgs/fondojuego.jpg");
@@ -22,6 +23,7 @@ main {
   font-weight: normal;
   text-align: left;
   margin-left: .7em;
+  margin-top: .3em;
   font-size: 3em;
 }
 
@@ -38,7 +40,7 @@ main {
 }
 
 .contenedor {
-  margin: 50px auto;
+  margin: 20px auto;
   display: grid;
   grid-template-columns: repeat(4, auto);
   grid-gap: 10px;
@@ -48,8 +50,8 @@ main {
 
 .carta {
   position: relative;
-  height: 126px;
-  width: 126px;
+  height: 120px;
+  width: 120px;
 }
 
 .carta-cara {
@@ -66,26 +68,26 @@ main {
 }
 
 .carta.visible .carta-detras {
-  transform: rotateY(-180deg); 
+  transform: rotateY(-180deg);
 }
 
 .carta.visible .carta-frente {
-  transform: rotateY(0); 
+  transform: rotateY(0);
 }
 
 .carta-detras {
   background-color: black;
   border-color: #FF6D00;
-  transform: rotateY(0); 
+  transform: rotateY(0);
 }
 
-.spider {
+.operador {
   align-self: flex-start;
   transition: transform 100ms ease-in-out;
   transform: translateY(-13px);
 }
 
-.carta-detras:hover .spider {
+.carta-detras:hover .operador {
   transform: translateY(0);
 }
 
